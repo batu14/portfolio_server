@@ -12,22 +12,28 @@ use App\Service\Dogrulama;
 
 final class AboutController extends AbstractController
 {
-    #[Route('api/about', name: 'app_about',methods:['GET'])]
+    
+
+   
+
+    #[Route('/api/about', name: 'app_about',methods:['GET'])]
     public function index(Request $request,EntityManagerInterface $entityManager): JsonResponse
     {
       $about = $entityManager->getRepository(About::class)->findAll();
       if(count($about) > 0){
         return new JsonResponse(
-        [
+          [
             'message' => 'About data found',
             'data'=>$about[0]->getAll(),
             'status'=>200
-        ]
-    );
+          ]
+        );
       }else{
         return new JsonResponse(['message' => 'About data not found','status'=>404]);
       }
     }
+
+    
 
 
     #[Route('api/about/create', name: 'app_about_create',methods:['POST'])]
